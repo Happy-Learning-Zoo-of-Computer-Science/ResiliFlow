@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ChooseProject = () => {
+const SelectProject = () => {
     return (
         <div>
             <ul>
@@ -13,4 +13,4 @@ const ChooseProject = () => {
     );
 };
 
-export default ChooseProject;
+export default SelectProject;

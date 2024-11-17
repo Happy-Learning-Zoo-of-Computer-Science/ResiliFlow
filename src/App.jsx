@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import ChooseProject from './pages/ChooseProject';
-import CreateProject from "./pages/CreateProject"
-import LoadProject from "./pages/LoadProject"
-import ImportProject from "./pages/ImportProject"
+import ChooseProject from './components/select_project/SelectProject';
+import CreateProject from "./components/select_project/CreateProject"
+import LoadProject from "./components/select_project/LoadProject"
+import ImportProject from "./components/select_project/ImportProject"
 
 
 const App = () => {
