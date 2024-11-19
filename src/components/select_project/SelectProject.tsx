@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SelectProject = () => {
+const SelectProject: React.FC = () => {
     return (
         <div>
             <ul>
