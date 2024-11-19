@@ -1,32 +1,3 @@
-// import { useState } from "react"
-// import SelectFolder from "./SelectFolder"
-// import SelectLanguage from "./SelectLanguage"
-// import SelectConfigurations from "./SelectConfigurations"
-// import SelectTemplates from "./SelectTemplates"
-
-// const CreateProject = () => {
-
-//     const [folderPath, setFolderPath] = useState();
-//     const [selectedLanguage, setSelectedLanguage] = useState();
-//     const [selectedConfigurations, setSelectedConfigurations] = useState([]);
-//     const [selectedTemplates, setSelectedTemplates] = useState([]);
-
-//     console.log(selectedLanguage);
-//     console.log(selectedConfigurations);
-//     console.log(selectedTemplates);
-
-//     return (
-//         <div>
-//             <SelectFolder folderPath={folderPath} setFolderPath={setFolderPath}/>
-//             <SelectLanguage selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage}/>
-//             <SelectConfigurations selectedLanguage={selectedLanguage} setSelectedConfigurations={setSelectedConfigurations}/>
-//             <SelectTemplates selectedLanguage={selectedLanguage} setSelectedTemplates={setSelectedTemplates}/>
-//         </div>
-//     )
-// };
-
-// export default CreateProject;
-
 import React, { useState } from 'react'
 import SelectFolder from './SelectFolder'
 import SelectLanguage from './SelectLanguage'
