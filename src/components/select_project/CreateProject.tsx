@@ -27,23 +27,23 @@
 
 // export default CreateProject;
 
-import React, { useState } from "react";
-import SelectFolder from "./SelectFolder";
-import SelectLanguage from "./SelectLanguage";
-import SelectConfigurations from "./SelectConfigurations";
-import SelectTemplates from "./SelectTemplates";
+import React, { useState } from 'react'
+import SelectFolder from './SelectFolder'
+import SelectLanguage from './SelectLanguage'
+import SelectConfigurations from './SelectConfigurations'
+import SelectTemplates from './SelectTemplates'
 
 const CreateProject: React.FC = () => {
-  const [folderPath, setFolderPath] = useState<string>("");
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("");
+  const [folderPath, setFolderPath] = useState<string>('')
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('')
   const [selectedConfigurations, setSelectedConfigurations] = useState<
     string[]
-  >([]);
-  const [selectedTemplates, setSelectedTemplates] = useState<string[]>([]);
+  >([])
+  const [selectedTemplates, setSelectedTemplates] = useState<string[]>([])
 
-  console.log(selectedLanguage);
-  console.log(selectedConfigurations);
-  console.log(selectedTemplates);
+  console.log(selectedLanguage)
+  console.log(selectedConfigurations)
+  console.log(selectedTemplates)
 
   return (
     <div>
@@ -61,7 +61,7 @@ const CreateProject: React.FC = () => {
         setSelectedTemplates={setSelectedTemplates}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CreateProject;
+export default CreateProject

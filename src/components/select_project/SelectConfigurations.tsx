@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 interface SelectConfigurationsProps {
-    selectedLanguage: string;
-    setSelectedConfigurations: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedLanguage: string
+  setSelectedConfigurations: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 /**
@@ -12,44 +12,39 @@ interface SelectConfigurationsProps {
  * @returns
  */
 const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
-    selectedLanguage,
-    setSelectedConfigurations,
+  selectedLanguage,
+  setSelectedConfigurations,
 }) => {
-    const [configurations, setConfigurations] = useState<string[]>([]);
+  const [configurations, setConfigurations] = useState<string[]>([])
 
-    useEffect(() => {
-        const loadConfigurations = async () => {
-            setConfigurations(await fetchConfigurations(selectedLanguage));
-        };
-        loadConfigurations();
-    }, [selectedLanguage]);
+  useEffect(() => {
+    const loadConfigurations = async () => {
+      setConfigurations(await fetchConfigurations(selectedLanguage))
+    }
+    loadConfigurations()
+  }, [selectedLanguage])
 
-    const handle = (configuration: string) => {
-        setSelectedConfigurations((previousSelected) => {
-            if (previousSelected.includes(configuration)) {
-                return previousSelected.filter(
-                    (selected) => selected !== configuration
-                );
-            } else {
-                return [...previousSelected, configuration];
-            }
-        });
-    };
+  const handle = (configuration: string) => {
+    setSelectedConfigurations((previousSelected) => {
+      if (previousSelected.includes(configuration)) {
+        return previousSelected.filter((selected) => selected !== configuration)
+      } else {
+        return [...previousSelected, configuration]
+      }
+    })
+  }
 
-    return (
-        <div>
-            <h2>Select configuration files to be generated.</h2>
-            {configurations.map((configuration) => (
-                <button
-                    key={configuration}
-                    onClick={() => handle(configuration)}
-                >
-                    {configuration}
-                </button>
-            ))}
-        </div>
-    );
-};
+  return (
+    <div>
+      <h2>Select configuration files to be generated.</h2>
+      {configurations.map((configuration) => (
+        <button key={configuration} onClick={() => handle(configuration)}>
+          {configuration}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 /**
  * Get available configuration files for the language.
@@ -57,9 +52,9 @@ const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
  * @returns A list of available configuration files.
  */
 const fetchConfigurations = async (
-    selectedLanguage: string
+  selectedLanguage: string,
 ): Promise<string[]> => {
-    return ['.gitignore', '.env', 'requirements.txt'];
-};
+  return ['.gitignore', '.env', 'requirements.txt']
+}
 
-export default SelectConfigurations;
+export default SelectConfigurations
