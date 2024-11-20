@@ -8,7 +8,6 @@
     "dev:react": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
     "build": "tsc && vite build && tsc --project ./electron/tsconfig.json",
-    "transpile:electron": "tsc --project ./electron/tsconfig.json",
     "dist:mac-arm": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
