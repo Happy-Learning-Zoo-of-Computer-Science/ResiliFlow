@@ -4,7 +4,7 @@ import {
   PauseCircleFilled,
 } from '@ant-design/icons'
 import { Button, Dropdown, MenuProps, Space, Table } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../../assets/css/Inspection/Inspection.css'
 interface PipelineData {
@@ -14,65 +14,7 @@ interface PipelineData {
   pipelineMessage: string
   status: 'success' | 'failed' | 'pending'
 }
-//todo use data from report serialize module
-const data: PipelineData[] = [
-  {
-    pipelineId: '1',
-    pipelineName: 'Pipeline 1',
-    testCoverage: 95,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '2',
-    pipelineName: 'Pipeline 2',
-    testCoverage: 72,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '3',
-    pipelineName: 'Pipeline 3',
-    testCoverage: 40,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '4',
-    pipelineName: 'Pipeline 4',
-    testCoverage: 92,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '5',
-    pipelineName: 'Pipeline 5',
-    testCoverage: 60,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '6',
-    pipelineName: 'Pipeline 6',
-    testCoverage: 58,
-    pipelineMessage: 'some message',
-    status: 'success',
-  },
-  {
-    pipelineId: '7',
-    pipelineName: 'Pipeline 7',
-    testCoverage: 0,
-    pipelineMessage: 'some message',
-    status: 'pending',
-  },
-  {
-    pipelineId: '8',
-    pipelineName: 'Pipeline 8',
-    testCoverage: 15,
-    pipelineMessage: 'some message',
-    status: 'failed',
-  },
-]
+
 const dropdownActionItems: MenuProps['items'] = [
   {
     label: 'Run Pipeline',
@@ -115,10 +57,75 @@ const menuProps = {
 
 const Inspection: React.FC = () => {
   const navigate = useNavigate()
+
+  const [pipelineData, setPipelineData] = useState<PipelineData[]>([])
+
+  function fetchPipelineData() {
+    //todo fetch pipeline data from report serialize module
+    const data: PipelineData[] = [
+      {
+        pipelineId: '1',
+        pipelineName: 'Pipeline 1',
+        testCoverage: 95,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '2',
+        pipelineName: 'Pipeline 2',
+        testCoverage: 72,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '3',
+        pipelineName: 'Pipeline 3',
+        testCoverage: 40,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '4',
+        pipelineName: 'Pipeline 4',
+        testCoverage: 92,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '5',
+        pipelineName: 'Pipeline 5',
+        testCoverage: 60,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '6',
+        pipelineName: 'Pipeline 6',
+        testCoverage: 58,
+        pipelineMessage: 'some message',
+        status: 'success',
+      },
+      {
+        pipelineId: '7',
+        pipelineName: 'Pipeline 7',
+        testCoverage: 0,
+        pipelineMessage: 'some message',
+        status: 'pending',
+      },
+      {
+        pipelineId: '8',
+        pipelineName: 'Pipeline 8',
+        testCoverage: 15,
+        pipelineMessage: 'some message',
+        status: 'failed',
+      },
+    ]
+    return setPipelineData(data)
+  }
   return (
     <>
       <Table<PipelineData>
-        dataSource={data}
+        dataSource={pipelineData}
         rowKey="pipelineId"
         bordered
         title={() => 'Inspection'}
