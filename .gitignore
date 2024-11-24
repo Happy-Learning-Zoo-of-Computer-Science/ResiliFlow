@@ -4,6 +4,5 @@ npm-debug.log
 .DS_Store
 .idea
 .vscode
-dist-electron
-dist-react
 dist
+build
