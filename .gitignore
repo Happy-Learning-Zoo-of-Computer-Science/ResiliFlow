@@ -7,3 +7,9 @@ npm-debug.log
 dist-electron
 dist-react
 dist
+.venv
+.DS_Store
+__pycache__
+*.py[cod]
+env/
+*.log
