@@ -3,6 +3,7 @@ import { isDev } from "./utils.js";
 import * as child from 'child_process';
 import { getPreloadPath, getRendererPath } from "./pathResolver.js";
 import kill from "tree-kill";
+import path from 'path';
 
 let python: child.ChildProcess;
 //dev mode start python server
@@ -15,12 +16,10 @@ if (isDev()) {
   python!.stderr!.on('data', (data: string) => {
     console.log(`stderr: ${data}`); // when error
   });
-  console.log("Python server started");
-
 }
 //prod mode start python server with exe, need to run npm run build:python first
 else {
-  python = child.spawn('dist-python/main/main');
+  python = child.spawn(path.join(app.getAppPath(), "..", "build/server/main/main"));
   python!.stdout!.on('data', function (data: string) {
     console.log("data: ", data.toString());
   });
@@ -28,8 +27,8 @@ else {
   python!.stderr!.on('data', (data: string) => {
     console.log(`stderr: ${data}`); // when error
   });
-  console.log("Python server started");
 }
+console.log("Python server started");
 
 
 
