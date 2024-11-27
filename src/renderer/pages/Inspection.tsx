@@ -4,9 +4,9 @@ import {
   PauseCircleFilled,
 } from '@ant-design/icons'
 import { Button, Dropdown, MenuProps, Space, Table } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import '../../assets/css/Inspection/Inspection.css'
+import '../assets/css/Inspection/Inspection.css'
 interface PipelineData {
   pipelineId: string
   pipelineName: string
@@ -59,7 +59,9 @@ const Inspection: React.FC = () => {
   const navigate = useNavigate()
 
   const [pipelineData, setPipelineData] = useState<PipelineData[]>([])
-
+  useEffect(() => {
+    setPipelineData(fetchPipelineData())
+  }, [])
   function fetchPipelineData() {
     //todo fetch pipeline data from report serialize module
     const data: PipelineData[] = [
@@ -120,7 +122,7 @@ const Inspection: React.FC = () => {
         status: 'failed',
       },
     ]
-    return setPipelineData(data)
+    return data
   }
   return (
     <>
