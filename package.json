@@ -2,13 +2,13 @@
   "name": "resiliflow",
   "version": "1.0.0",
   "type": "module",
-  "main": "dist-electron/main.js",
+  "main": "./build/electron/main.js",
   "scripts": {
     "dev": "npm-run-all --parallel dev:react dev:electron",
     "dev:react": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
-    "build": "tsc && vite build && tsc --project ./electron/tsconfig.json",
-    "dist:mac-arm": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
+    "build": "tsc && vite build && tsc --project src/main/tsconfig.json",
+    "dist:mac-arm": "tsc --project ./src/main/tsconfig.json && npm run build && electron-builder --mac --arm64",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest"
@@ -41,6 +41,8 @@
     "vite": "^5.4.11"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
+    "antd": "^5.22.1",
     "concurrently": "^9.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
