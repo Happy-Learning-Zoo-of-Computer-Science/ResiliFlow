@@ -8,6 +8,9 @@ dist-electron
 dist-react
 dist
 .venv
+.env
+.mypy_cache
+build/
 .DS_Store
 __pycache__
 *.py[cod]

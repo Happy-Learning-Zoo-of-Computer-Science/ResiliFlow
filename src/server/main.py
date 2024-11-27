@@ -1,9 +1,12 @@
+import os
+import sys
 from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+# Enable CORS for all routes and allow all origins
+CORS(app)
 
 
 @app.route("/")
@@ -17,7 +20,4 @@ def data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-
-
-# flask cors localhost 3000
+    app.run(debug=True, port=5174, use_reloader=False)
