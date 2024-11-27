@@ -6,6 +6,7 @@ npm-debug.log
 .vscode
 dist-electron
 dist-react
+dist-python
 dist
 .venv
 .env

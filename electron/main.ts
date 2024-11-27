@@ -9,16 +9,34 @@ import * as child from 'child_process';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+let python: child.ChildProcess;
+//dev mode start python server
+if (isDev()) {
+  python = child.spawn('python', ['./src/server/main.py']);
+  python!.stdout!.on('data', function (data: string) {
+    console.log("data: ", data.toString());
+  });
 
-const python = child.spawn('python', ['./src/server/main.py']);
+  python!.stderr!.on('data', (data: string) => {
+    console.log(`stderr: ${data}`); // when error
+  });
+  console.log("Python server started");
 
-python.stdout.on('data', function (data: string) {
-  console.log("data: ", data.toString());
-});
+}
+//prod mode start python server with exe, need to run npm run build:python first
+else {
+  python = child.spawn('dist-python/main/main');
+  python!.stdout!.on('data', function (data: string) {
+    console.log("data: ", data.toString());
+  });
 
-python.stderr.on('data', (data: string) => {
-  console.log(`stderr: ${data}`); // when error
-});
+  python!.stderr!.on('data', (data: string) => {
+    console.log(`stderr: ${data}`); // when error
+  });
+  console.log("Python server started");
+}
+
+
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
@@ -44,3 +62,16 @@ app.whenReady().then(() => {
     return result.filePaths[0];
   });
 });
+
+app.on("window-all-closed", () => {
+  killPython(python);
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+
+function killPython(python: child.ChildProcess) {
+  const kill = require("tree-kill");
+  kill(python.pid);
+}

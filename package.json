@@ -7,8 +7,11 @@
     "dev": "npm-run-all --parallel dev:react dev:electron",
     "dev:react": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
-    "build": "tsc && vite build && tsc --project ./electron/tsconfig.json",
-    "dist:mac-arm": "npm run transpile:electron && npm run build && electron-builder --mac --arm64",
+    "dev:python": "python -m src.server.main",
+    "build": "tsc && vite build && tsc --project ./electron/tsconfig.json && pip install -r ./requirements.txt",
+    "build:python": "cd src/server && python -m PyInstaller main.spec -y --distpath ../../dist-python",
+    "install:python": "pip install -r ./requirements.txt",
+    "dist:mac-arm": "npm run tsc --project ./electron/tsconfig.json && npm run build && electron-builder --mac --arm64",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -41,6 +44,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
+    "tree-kill": "^1.2.2",
     "wait-on": "^8.0.1"
   }
 }
