@@ -1,0 +1,23 @@
+{
+  "appId": "resiliflow",
+  "files": [
+    "build/electron",
+    "build/renderer"
+  ],
+  "extraResources": [
+    "build/electron/preload.cjs"
+  ],
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": [
+      "portable",
+      "msi"
+    ]
+  }
+}

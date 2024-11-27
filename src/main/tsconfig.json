@@ -8,12 +8,12 @@
     // tell TypeScript to require ESM Syntax as input (including .js file imports)
     "module": "NodeNext",
     // define where to put generated JS
-    "outDir": "../dist-electron",
+    "outDir": "../../build/electron",
     // ignore errors from dependencies
     "skipLibCheck": true,
     // add global types
     "types": [
-      "../types"
+      "../../types.ts"
     ]
   }
 }

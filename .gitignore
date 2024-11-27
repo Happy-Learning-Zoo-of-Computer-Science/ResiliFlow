@@ -8,6 +8,7 @@ dist-electron
 dist-react
 dist-python
 dist
+//gitignore for python
 .venv
 .env
 .mypy_cache
@@ -17,3 +18,5 @@ __pycache__
 *.py[cod]
 env/
 *.log
+dist
+build

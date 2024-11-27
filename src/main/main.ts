@@ -1,13 +1,8 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
-import { fileURLToPath } from 'url';
-import path from 'path';
 import { isDev } from "./utils.js";
-import { getRendererPath } from "./pathResolver.js";
 import * as child from 'child_process';
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { getPreloadPath, getRendererPath } from "./pathResolver.js";
+import kill from "tree-kill";
 
 let python: child.ChildProcess;
 //dev mode start python server
@@ -38,12 +33,13 @@ else {
 
 
 
+
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.cjs'),
+      preload: getPreloadPath(),
       contextIsolation: true,
     },
   });
@@ -64,6 +60,7 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
+  console.log(python.pid);
   killPython(python);
   if (process.platform !== "darwin") {
     app.quit();
@@ -72,6 +69,7 @@ app.on("window-all-closed", () => {
 
 
 function killPython(python: child.ChildProcess) {
-  const kill = require("tree-kill");
-  kill(python.pid);
+  if (python && python.pid) {
+    kill(python.pid);
+  }
 }
