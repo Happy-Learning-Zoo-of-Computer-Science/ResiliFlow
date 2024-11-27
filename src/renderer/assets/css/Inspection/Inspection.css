@@ -1,0 +1,20 @@
+.high-coverage-button {
+    background-color: #d9e9d9;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+.medium-coverage-button {
+    background-color: #CFD0B3;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}
+
+.low-coverage-button {
+    background-color: #DBB5B5;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+}

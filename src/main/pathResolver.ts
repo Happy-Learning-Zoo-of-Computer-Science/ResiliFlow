@@ -4,9 +4,9 @@ import { isDev } from "./utils.js";
 
 
 export function getPreloadPath(): string {
-    return path.join(app.getAppPath(), isDev() ? "./dist/electron/preload.cjs" : "../dist-react/preload.cjs");
+    return path.join(app.getAppPath(), isDev() ? "." : "..", "/build/electron/preload.cjs");
 }
 
 export function getRendererPath(): string {
-    return path.join(app.getAppPath(), '/dist-react/index.html');
+    return path.join(app.getAppPath(), "build/renderer", "index.html");
 }

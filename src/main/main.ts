@@ -1,12 +1,6 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
-import { fileURLToPath } from 'url';
-import path from 'path';
 import { isDev } from "./utils.js";
-import { getRendererPath } from "./pathResolver.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+import { getPreloadPath, getRendererPath } from "./pathResolver.js";
 
 
 app.whenReady().then(() => {
@@ -14,7 +8,7 @@ app.whenReady().then(() => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.cjs'),
+      preload: getPreloadPath(),
       contextIsolation: true,
     },
   });

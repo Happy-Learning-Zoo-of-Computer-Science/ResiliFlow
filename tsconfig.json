@@ -25,10 +25,10 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "./src"
+    "src"
   ],
   "exclude": [
-    "./electron"
+    "src/main"
   ],
   "references": [
     {
