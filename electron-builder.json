@@ -5,7 +5,8 @@
   ],
   "extraResources": [
     "build/electron/preload.cjs",
-    "build/server/**/*"
+    ".env",
+    "run"
   ],
   "mac": {
     "target": "dmg"
