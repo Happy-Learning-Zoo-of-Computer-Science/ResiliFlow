@@ -4,30 +4,27 @@ import * as child from 'child_process';
 import { getPreloadPath, getRendererPath } from "./pathResolver.js";
 import kill from "tree-kill";
 import path from 'path';
+import 'dotenv/config'
 
 let python: child.ChildProcess;
-//dev mode start python server
-if (isDev()) {
-  python = child.spawn('python', ['./src/server/main.py']);
-  python!.stdout!.on('data', function (data: string) {
-    console.log("data: ", data.toString());
-  });
 
-  python!.stderr!.on('data', (data: string) => {
-    console.log(`stderr: ${data}`); // when error
-  });
+// Get backend executable path from environment.
+// Path should be injected to .env in workflows on Github Actions.
+let backendExecutablePath = process.env.BACKEND_EXECUTABLE_PATH;
+if (!backendExecutablePath) {
+  console.error("Error: Environment variable 'BACKEND_EXECUTABLE_PATH' is not set in .env file.");
+  process.exit(1);
 }
-//prod mode start python server with exe, need to run npm run build:python first
-else {
-  python = child.spawn(path.join(app.getAppPath(), "..", "build/server/main/main"));
-  python!.stdout!.on('data', function (data: string) {
-    console.log("data: ", data.toString());
-  });
 
-  python!.stderr!.on('data', (data: string) => {
-    console.log(`stderr: ${data}`); // when error
-  });
-}
+// Start a backend process.
+console.log("Starting backend application from: ${backendExecutablePath}");
+python = child.spawn(backendExecutablePath)
+python!.stdout!.on('data', function (data: string) {
+  console.log("data: ", data.toString());
+});
+python!.stderr!.on('data', (data: string) => {
+  console.log(`stderr: ${data}`); // when error
+});
 console.log("Python server started");
 
 
