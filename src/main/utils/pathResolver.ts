@@ -4,7 +4,6 @@ import { isDev } from "./utils.js";
 
 
 export function getPreloadPath(): string {
-    console.log(path.join(app.getAppPath(), isDev() ? "." : "..", "/build/electron/preload.cjs"));
     return path.join(app.getAppPath(), isDev() ? "." : "..", "/build/electron/preload.cjs");
 }
 
