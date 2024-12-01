@@ -1,7 +1,10 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
-import { isDev } from "./utils.js";
-import { getPreloadPath, getRendererPath } from "./pathResolver.js";
+import { app, BrowserWindow } from "electron";
+import { isDev } from "./utils/utils.js";
+import { getPreloadPath, getRendererPath } from "./utils/pathResolver.js";
+import { startBackendService, stopBackendService } from "./utils/backendRunner.js";
+import { registerOpenDirectoryIpcHandler } from "./ipcs/OpenDirectoryIpc.js";
 
+const backendService = startBackendService();
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
@@ -19,11 +22,12 @@ app.whenReady().then(() => {
     mainWindow.loadFile(getRendererPath());
   }
 
-  // Load folder.
-  ipcMain.handle("select-folder", async () => {
-    const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ["openDirectory"],
-    });
-    return result.filePaths[0];
-  });
+  registerOpenDirectoryIpcHandler(mainWindow);
+});
+
+app.on("window-all-closed", () => {
+  stopBackendService(backendService);
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
