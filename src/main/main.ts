@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow } from "electron";
 import { isDev } from "./utils/utils.js";
 import { getPreloadPath, getRendererPath } from "./utils/pathResolver.js";
 import { startBackendService, stopBackendService } from "./utils/backendRunner.js";

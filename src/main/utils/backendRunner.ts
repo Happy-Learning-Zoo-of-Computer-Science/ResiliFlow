@@ -3,6 +3,7 @@ import * as child from 'child_process';
 import { app } from "electron";
 import path from "path";
 import kill from "tree-kill";
+import 'dotenv/config'
 
 export function startBackendService(): child.ChildProcess {
     const startProcess = (command: string): child.ChildProcess => {
@@ -27,7 +28,7 @@ export function startBackendService(): child.ChildProcess {
         console.log(`Starting backend application from: ${backendExecutablePath}`);
         python = startProcess(backendExecutablePath);
     } else {
-        const command = path.join(app.getAppPath(), "run");
+        const command = path.join(app.getAppPath(), "..", "run");
         python = startProcess(command);
     }
     return python;
