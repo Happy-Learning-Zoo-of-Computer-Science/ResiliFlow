@@ -8,7 +8,7 @@
     "dev:react": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
     "build": "tsc && vite build && tsc --project src/main/tsconfig.json",
-    "dist:mac-arm": "tsc --project ./src/main/tsconfig.json && npm run build && electron-builder --mac --arm64",
+    "dist:mac-arm": "tsc && tsc --project ./src/main/tsconfig.json && npm run build && electron-builder --mac --arm64",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest"
@@ -44,9 +44,12 @@
     "@ant-design/icons": "^5.5.1",
     "antd": "^5.22.1",
     "concurrently": "^9.1.0",
+    "dotenv": "^16.4.5",
+    "electron-log": "^5.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
+    "tree-kill": "^1.2.2",
     "wait-on": "^8.0.1"
   }
 }
