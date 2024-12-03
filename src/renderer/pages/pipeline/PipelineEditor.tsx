@@ -66,6 +66,7 @@ const PipelineEditor: React.FC = () => {
             setData([]);
             setData(deserializedData);
             message.success('Load successfully');
+            setIsLoadModalVisible(false);
         } catch (error) {
             console.error("Failed to load data from YAML:", error);
             message.error("Failed to load data from YAML: " + (error as Error).message);
@@ -78,6 +79,27 @@ const PipelineEditor: React.FC = () => {
 
     const handleLoadModalCancel = () => {
         setIsLoadModalVisible(false);
+    };
+
+    const handleLoadFromFile = async () => {
+        try {
+            const content = await window.electronAPI.readTextFile();
+            setYamlContent(content);
+            message.success("Loaded file content to text area. Click Load to load this pipeline.");
+        } catch (error) {
+            console.error("Failed to load file:", error);
+            message.error("Failed to load file");
+        }
+    };
+
+    const handleSaveToFile = async () => {
+        try {
+            await window.electronAPI.saveTextFile(yamlContent);
+            message.success("File saved successfully");
+        } catch (error) {
+            console.error("Failed to save file:", error);
+            message.error("Failed to save file");
+        }
     };
 
     return (
@@ -103,9 +125,12 @@ const PipelineEditor: React.FC = () => {
                 footer={[
                     <Button key="copy" onClick={() => {
                         navigator.clipboard.writeText(yamlContent);
-                        message.success('已复制到剪贴板');
+                        message.success('Copied to Clipboard');
                     }}>
                         Copy to Clipboard
+                    </Button>,
+                    <Button key="saveToFile" onClick={handleSaveToFile}>
+                        Save To File
                     </Button>,
                     <Button key="close" onClick={handleSaveModalCancel}>
                         Close
@@ -125,6 +150,17 @@ const PipelineEditor: React.FC = () => {
                 onOk={handleLoadModalOk}
                 onCancel={handleLoadModalCancel}
                 width={800}
+                footer={[
+                    <Button key="loadFromFile" onClick={handleLoadFromFile}>
+                        Load From File
+                    </Button>,
+                    <Button key="load" onClick={handleLoadModalOk}>
+                        Load
+                    </Button>,
+                    <Button key="close" onClick={handleLoadModalCancel}>
+                        Close
+                    </Button>,
+                ]}
             >
                 <TextArea
                     rows={20}
