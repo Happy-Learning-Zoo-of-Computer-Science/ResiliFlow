@@ -8,7 +8,7 @@ import LoadProject from './pages/LoadProject';
 import ImportProject from './pages/ImportProject';
 import Inspection from './pages/Inspection';
 import Report from './pages/Report';
-// import PipelineEditor from './pages/pipeline/PipelineEditor';
+import PipelineEditor from './pages/pipeline/PipelineEditor';
 import Home from './pages/Home';
 import AppFooter from './components/AppFooter';
 
@@ -69,7 +69,7 @@ const App = () => {
                             <Route path="/import-project" element={<ImportProject/>}/>
                             <Route path="/inspection" element={<Inspection/>}/>
                             <Route path="/report/:pipelineId" element={<Report/>}/>
-                            {/*<Route path="/pipeline" element={<PipelineEditor/>}/>*/}
+                            <Route path="/pipeline" element={<PipelineEditor/>}/>
                             <Route path="*" element={<h1>404 Not Found</h1>}/>
                         </Routes>
                     </Content>
