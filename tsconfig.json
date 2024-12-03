@@ -25,7 +25,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "tests/utils/Serializer.test.ts"
   ],
   "exclude": [
     "src/main"

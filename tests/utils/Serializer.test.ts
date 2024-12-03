@@ -1,4 +1,4 @@
-import Serializer from "./Serializer"; // 假设 Serializer 类位于同一目录
+import Serializer from "../../src/util/Serializer"; // 假设 Serializer 类位于同一目录
 import "jest";
 
 class Address {
