@@ -8,8 +8,8 @@ const backendService = startBackendService();
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 800,
     webPreferences: {
       preload: getPreloadPath(),
       contextIsolation: true,
