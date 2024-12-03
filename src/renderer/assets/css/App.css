@@ -1,0 +1,23 @@
+.main-layout {
+    min-height: 100vh;
+}
+
+.main-layout-sider {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.main-content {
+    margin: 16px;
+    flex: 1;
+    overflow: auto;
+}
+
+.content-layout {
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+}

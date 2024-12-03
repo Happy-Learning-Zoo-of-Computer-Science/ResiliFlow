@@ -12,6 +12,8 @@ import Report from './pages/Report';
 import Home from './pages/Home';
 import AppFooter from './components/AppFooter';
 
+import "./assets/css/App.css"
+
 const {Content, Footer, Sider} = Layout;
 
 const menuItems = [
@@ -50,23 +52,15 @@ const menuItems = [
 const App = () => {
     return (
         <Router>
-            <Layout style={{minHeight: '100vh'}}>
-                <Sider
-                    style={{
-                        height: '100vh',
-                        position: 'fixed',
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                    }}
-                >
+            <Layout className="main-layout">
+                <Sider className="main-layout-sider">
                     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={menuItems}/>
                 </Sider>
-                <Layout style={{display: 'flex', flexDirection: 'column', marginLeft: 200}}>
+                <Layout className="content-layout">
                     {/*<Header style={{ padding: 0 }}>*/}
                     {/*  <AppHeader />*/}
                     {/*</Header>*/}
-                    <Content style={{margin: '16px', flex: 1, overflow: 'auto'}}>
+                    <Content className="main-content">
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/choose-project" element={<ChooseProject/>}/>
