@@ -18,6 +18,16 @@ class Node extends Component<NodeProps, NodeState> {
         };
     }
 
+    componentDidUpdate(prevProps: NodeProps) {
+        // Check if the data prop has changed
+        if (prevProps.data !== this.props.data) {
+            // Update the internal state with the new config
+            this.setState({
+                config: this.props.data.config,
+            });
+        }
+    }
+
     handleInputChange = (key: string, event: ChangeEvent<HTMLInputElement>) => {
         const {value} = event.target;
         this.setState((prevState) => ({
@@ -26,6 +36,7 @@ class Node extends Component<NodeProps, NodeState> {
                 [key]: value,
             },
         }));
+        this.props.data.config[key] = value;
     };
 
     handleSave = () => {
