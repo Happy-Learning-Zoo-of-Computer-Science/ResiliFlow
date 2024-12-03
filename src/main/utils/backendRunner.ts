@@ -23,15 +23,17 @@ export function startBackendService(): child.ChildProcess {
         const backendExecutablePath = process.env.BACKEND_EXECUTABLE_PATH;
         if (!backendExecutablePath) {
             console.error("Error: Environment variable 'BACKEND_EXECUTABLE_PATH' is not set in .env file.");
-            process.exit(1);
         }
-        console.log(`Starting backend application from: ${backendExecutablePath}`);
-        python = startProcess(backendExecutablePath);
+        else {
+            console.log(`Starting backend application from: ${backendExecutablePath}`);
+            python = startProcess(backendExecutablePath);
+        }
+
     } else {
         const command = path.join(app.getAppPath(), "..", "run");
         python = startProcess(command);
     }
-    return python;
+    return python!;
 }
 
 
