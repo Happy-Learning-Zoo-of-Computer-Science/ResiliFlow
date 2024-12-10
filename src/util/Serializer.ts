@@ -1,32 +1,37 @@
+import * as yaml from "js-yaml";
+
 class Serializer {
     /**
-     * Serializes an object to JSON, handling nested classes, lists, and dictionaries.
+     * Serializes an object to YAML, handling nested classes, lists, and dictionaries.
      * @param obj The object to serialize.
-     * @returns A JSON string representing the serialized object.
+     * @returns A YAML string representing the serialized object.
      */
     static serialize(obj: any): string {
-        return JSON.stringify(obj, (key, value) => {
-            if (Array.isArray(value)) {
-                return value; // Do not add __class for arrays
-            }
-            if (value && typeof value === "object" && value.constructor) {
-                return {
-                    ...value,
-                    __class: value.constructor.name, // Store class name for deserialization
-                };
-            }
-            return value;
+        return yaml.dump(obj, {
+            replacer: (key, value) => {
+                if (Array.isArray(value)) {
+                    return value; // Do not add __class for arrays
+                }
+                if (value && typeof value === "object" && value.constructor && value.constructor !== Object) {
+                    return {
+                        ...value,
+                        __class: value.constructor.name, // Store class name for deserialization
+                    };
+                }
+                return value;
+            },
         });
     }
 
     /**
-     * Deserializes a JSON string back into an object, restoring classes and nested structures.
-     * @param json The JSON string to deserialize.
+     * Deserializes a YAML string back into an object, restoring classes and nested structures.
+     * @param yamlString The YAML string to deserialize.
      * @param classMap A map of class constructors for restoring instances.
      * @returns The deserialized object.
      */
-    static deserialize<T>(json: string, classMap: Record<string, new () => T>): T {
-        const parsed = JSON.parse(json, (key, value) => {
+    static deserialize<T>(yamlString: string, classMap: Record<string, new () => T>): T {
+        const parsed = yaml.load(yamlString);
+        const reviver = (key: any, value: any) => {
             if (value && value.__class) {
                 const classConstructor = classMap[value.__class];
                 if (classConstructor) {
@@ -37,8 +42,29 @@ class Serializer {
                 }
             }
             return value;
-        });
-        return parsed;
+        };
+
+        return this.traverse(parsed, reviver) as T;
+    }
+
+    /**
+     * Traverses an object and applies a reviver function to all keys and values.
+     * @param obj The object to traverse.
+     * @param reviver The reviver function to apply.
+     * @returns The transformed object.
+     */
+    private static traverse(obj: any, reviver: (key: any, value: any) => any): any {
+        if (Array.isArray(obj)) {
+            return obj.map((item) => this.traverse(item, reviver));
+        }
+        if (obj && typeof obj === "object" && obj.constructor === Object) {
+            const newObj: Record<string, any> = {};
+            for (const [key, value] of Object.entries(obj)) {
+                newObj[key] = this.traverse(value, reviver);
+            }
+            return reviver("", newObj);
+        }
+        return obj;
     }
 }
 

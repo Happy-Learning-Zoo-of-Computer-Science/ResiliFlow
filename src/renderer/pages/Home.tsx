@@ -11,6 +11,8 @@ const Home: React.FC = () => {
         <Link to="/inspection">Inspection</Link>
         <div></div>
         <Link to="/report">Report</Link>
+        <div />
+        <Link to="/pipeline">Pipeline Editor</Link>
       </div>
     </>
   )

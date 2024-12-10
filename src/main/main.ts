@@ -3,6 +3,8 @@ import { isDev } from "./utils/utils.js";
 import { getPreloadPath, getRendererPath } from "./utils/pathResolver.js";
 import { startBackendService, stopBackendService } from "./utils/backendRunner.js";
 import { registerOpenDirectoryIpcHandler } from "./ipcs/OpenDirectoryIpc.js";
+import {registerReadTextFileIpcHandler} from "./ipcs/ReadTextFile.js";
+import {registerSaveTextFileIpcHandler} from "./ipcs/SaveTextFile.js";
 
 const backendService = startBackendService();
 
@@ -25,6 +27,8 @@ app.whenReady().then(() => {
   }
 
   registerOpenDirectoryIpcHandler(mainWindow);
+  registerReadTextFileIpcHandler(mainWindow);
+  registerSaveTextFileIpcHandler(mainWindow);
 });
 
 app.on("window-all-closed", () => {
