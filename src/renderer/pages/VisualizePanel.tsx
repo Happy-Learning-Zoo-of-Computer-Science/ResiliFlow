@@ -11,6 +11,7 @@ import {
 import '@xyflow/react/dist/style.css'
 import { Button, Dropdown, MenuProps, Space } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
+import '../assets/css/VisualizePanel/VisualizePanel.css'
 
 export const VisualizePanel: React.FC = () => {
   const initialNodes: Node[] = [
@@ -63,7 +64,7 @@ export const VisualizePanel: React.FC = () => {
     console.log(nodes)
   }
   return (
-    <div>
+    <div className="mainFrame">
       <Dropdown menu={menuProps}>
         <Button>
           <Space>
@@ -72,7 +73,7 @@ export const VisualizePanel: React.FC = () => {
           </Space>
         </Button>
       </Dropdown>
-      <Button color="primary" onClick={() => validNodes}>
+      <Button type="primary" onClick={() => validNodes}>
         Save
       </Button>
       <ReactFlow
