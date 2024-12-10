@@ -54,7 +54,27 @@ const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
 const fetchConfigurations = async (
   selectedLanguage: string,
 ): Promise<string[]> => {
-  return ['.gitignore', '.env', 'requirements.txt']
-}
+  if (selectedLanguage === 'None') {
+    return [];
+  }
+
+  try {
+    const url = `http://127.0.0.1:5000/api/project/configurations/supported?language=${encodeURIComponent(selectedLanguage)}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch configurations: ${response.statusText}`);
+    }
+
+    const dictionary: Record<string, unknown> = await response.json();
+    const configurations = Object.keys(dictionary);
+    console.log("Get " + configurations);
+    return configurations;
+  } catch (error) {
+    console.error('Error fetching configurations:', error);
+    return []; // Return an empty list on error.
+  }
+};
+
 
 export default SelectConfigurations

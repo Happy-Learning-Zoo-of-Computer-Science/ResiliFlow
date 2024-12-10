@@ -33,6 +33,7 @@ const SelectLanguage: React.FC<SelectLanguageProps> = ({
         title="language"
         id="language-select"
         value={selectedLanguage}
+        defaultValue={selectedLanguage[0]}
         onChange={(event) => setSelectedLanguage(event.target.value)}
       >
         {languages.map((language, index) => (
@@ -50,7 +51,9 @@ const SelectLanguage: React.FC<SelectLanguageProps> = ({
  * @returns A list of available languages.
  */
 const fetchLanguages = async (): Promise<string[]> => {
-  return ['Python', 'node.js']
+  // Call backend API to get available languages.
+  let result = await fetch('http://127.0.0.1:5000/api/project/languages')
+  return await result.json()
 }
 
 export default SelectLanguage
