@@ -4,7 +4,6 @@ import { Button } from 'antd'
 interface SelectFolderProps {
   folderPath: string
   setFolderPath: (path: string) => void
-  folderIsInitialized: boolean
   setFolderIsInitialized: (initialized: boolean) => void
 }
 
@@ -16,7 +15,6 @@ interface SelectFolderProps {
 const SelectFolder: React.FC<SelectFolderProps> = ({
   folderPath,
   setFolderPath,
-  folderIsInitialized, 
   setFolderIsInitialized
 }) => {
 

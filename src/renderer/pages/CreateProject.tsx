@@ -22,7 +22,6 @@ const CreateProject: React.FC = () => {
       <SelectFolder 
         folderPath={folderPath} 
         setFolderPath={setFolderPath}
-        folderIsInitialized={folderIsInitialized}
         setFolderIsInitialized={setFolderIsInitialized}
       />
       <SelectLanguage
