@@ -6,6 +6,7 @@ import SelectTemplates from './SelectTemplates'
 
 const CreateProject: React.FC = () => {
   const [folderPath, setFolderPath] = useState<string>('')
+  const [folderIsInitialized, setFolderIsInitialized] = useState<boolean>(false)
   const [selectedLanguage, setSelectedLanguage] = useState<string>('')
   const [selectedConfigurations, setSelectedConfigurations] = useState<
     string[]
@@ -18,7 +19,12 @@ const CreateProject: React.FC = () => {
 
   return (
     <div>
-      <SelectFolder folderPath={folderPath} setFolderPath={setFolderPath} />
+      <SelectFolder 
+        folderPath={folderPath} 
+        setFolderPath={setFolderPath}
+        folderIsInitialized={folderIsInitialized}
+        setFolderIsInitialized={setFolderIsInitialized}
+      />
       <SelectLanguage
         selectedLanguage={selectedLanguage}
         setSelectedLanguage={setSelectedLanguage}
