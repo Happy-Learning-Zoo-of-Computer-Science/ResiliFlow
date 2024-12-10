@@ -20,6 +20,8 @@ const SelectFolder: React.FC<SelectFolderProps> = ({
 
   // Check if the selected folder is initialized.
   const [validationResult, setValidationResult] = React.useState<JSX.Element | null>(null);
+  // Color of the button.
+  const [buttonColor, setButtonColor] = React.useState<'default' | 'danger' | 'primary'>('default');
 
   const handle = async () => {
     const selectedFolderPath: string = await window.electronAPI.selectFolder();
@@ -28,8 +30,10 @@ const SelectFolder: React.FC<SelectFolderProps> = ({
     setFolderIsInitialized(isInitialized);
     if (isInitialized) {
       setValidationResult(<p>This folder is initialized.</p>);
+      setButtonColor('danger');
     } else {
       setValidationResult(<p></p>);
+      setButtonColor('default');
     }
   }
 
@@ -37,7 +41,7 @@ const SelectFolder: React.FC<SelectFolderProps> = ({
     <div>
       <h2>Select a folder.</h2>
       {validationResult}
-      <Button key="Select a folder" onClick={handle}>
+      <Button key="Select a folder" color={buttonColor} variant="outlined" onClick={handle}>
         {folderPath ? folderPath : 'Select a folder'}
       </Button>
     </div>
