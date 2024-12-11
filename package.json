@@ -21,6 +21,7 @@
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.15.0",
     "@types/jest": "^29.5.14",
+    "@types/js-yaml": "^4.0.9",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
@@ -47,10 +48,12 @@
     "concurrently": "^9.1.0",
     "dotenv": "^16.4.5",
     "electron-log": "^5.2.3",
+    "js-yaml": "^4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
     "tree-kill": "^1.2.2",
+    "uuid": "^11.0.3",
     "wait-on": "^8.0.1"
   }
 }

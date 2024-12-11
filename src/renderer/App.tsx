@@ -7,9 +7,9 @@ import LoadProject from './pages/LoadProject'
 import ImportProject from './pages/ImportProject'
 import Inspection from './pages/Inspection'
 import Report from './pages/Report'
-// import PipelineEditor from './pages/pipeline/PipelineEditor';
 import Home from './pages/Home'
 import AppFooter from './components/AppFooter'
+import PipelineEditor from './pages/pipeline/PipelineEditor'
 
 import './assets/css/App.css'
 import { SideBar } from './components/SIderBar'
@@ -33,7 +33,7 @@ const App = () => {
               <Route path="/inspection" element={<Inspection />} />
               <Route path="/report/:pipelineId" element={<Report />} />
               <Route path="visualize" element={<VisualizePanel />} />
-              {/*<Route path="/pipeline" element={<PipelineEditor/>}/>*/}
+              <Route path="/pipeline" element={<PipelineEditor />} />
               <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>
           </Content>

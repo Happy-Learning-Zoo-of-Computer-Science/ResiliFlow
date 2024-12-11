@@ -20,3 +20,4 @@ env/
 *.log
 dist
 build
+run
