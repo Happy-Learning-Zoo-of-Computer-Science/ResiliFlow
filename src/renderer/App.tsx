@@ -12,7 +12,7 @@ import AppFooter from './components/AppFooter'
 import PipelineEditor from './pages/pipeline/PipelineEditor'
 
 import './assets/css/App.css'
-import { SideBar } from './components/SIderBar'
+import { SideBar } from './components/SiderBar'
 import { VisualizePanel } from './pages/VisualizePanel'
 
 const { Content, Footer } = Layout

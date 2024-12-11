@@ -40,7 +40,7 @@ const handleMenuClick = (
       console.log('run')
       break
     case 'edit':
-      navigate('visualize')
+      navigate('/visualize')
       break
     case 'view':
       navigate('/report/' + pipelineId)
