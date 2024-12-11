@@ -30,13 +30,25 @@ export const VisualizePanel: React.FC = () => {
       id: '1',
       position: { x: 300, y: 100 },
       data: { label: 'Install' },
-      style: { backgroundColor: 'red' },
+      style: {
+        //Cyan
+        backgroundColor: '#5cdbd3',
+        border: '1px solid #08979c',
+        borderRadius: '5px',
+        padding: '10px',
+      },
     },
     {
       id: '2',
       position: { x: 300, y: 200 },
       data: { label: 'Test' },
-      style: { backgroundColor: 'blue' },
+      style: {
+        //Daybreak Blue
+        backgroundColor: '#69b1ff',
+        border: '1px solid #0958d9',
+        borderRadius: '5px',
+        padding: '10px',
+      },
     },
   ]
   const initialEdges: Edge[] = [
@@ -89,10 +101,25 @@ export const VisualizePanel: React.FC = () => {
         data: { label },
         style:
           label === 'Install'
-            ? { backgroundColor: 'red' }
+            ? {
+                backgroundColor: '#5cdbd3',
+                border: '1px solid #08979c',
+                borderRadius: '5px',
+                padding: '10px',
+              }
             : label === 'Test'
-            ? { backgroundColor: 'blue' }
-            : { backgroundColor: 'green' },
+            ? {
+                backgroundColor: '#69b1ff',
+                border: '1px solid #0958d9',
+                borderRadius: '5px',
+                padding: '10px',
+              }
+            : {
+                backgroundColor: '#95de64',
+                border: '1px solid #389e0d',
+                borderRadius: '5px',
+                padding: '10px',
+              },
       },
     ])
   }
