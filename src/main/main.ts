@@ -1,12 +1,19 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
-import { isDev } from "./utils.js";
-import { getPreloadPath, getRendererPath } from "./pathResolver.js";
+import { app, BrowserWindow } from "electron";
+import { isDev } from "./utils/utils.js";
+import { getPreloadPath, getRendererPath } from "./utils/pathResolver.js";
+import { startBackendService, stopBackendService } from "./utils/backendRunner.js";
+import { registerOpenDirectoryIpcHandler } from "./ipcs/OpenDirectoryIpc.js";
+import {registerReadTextFileIpcHandler} from "./ipcs/ReadTextFile.js";
+import {registerSaveTextFileIpcHandler} from "./ipcs/SaveTextFile.js";
 
+const backendService = startBackendService();
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 800,
+    minWidth: 1280,
+    minHeight: 800,
     webPreferences: {
       preload: getPreloadPath(),
       contextIsolation: true,
@@ -19,11 +26,14 @@ app.whenReady().then(() => {
     mainWindow.loadFile(getRendererPath());
   }
 
-  // Load folder.
-  ipcMain.handle("select-folder", async () => {
-    const result = await dialog.showOpenDialog(mainWindow, {
-      properties: ["openDirectory"],
-    });
-    return result.filePaths[0];
-  });
+  registerOpenDirectoryIpcHandler(mainWindow);
+  registerReadTextFileIpcHandler(mainWindow);
+  registerSaveTextFileIpcHandler(mainWindow);
+});
+
+app.on("window-all-closed", () => {
+  stopBackendService(backendService);
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });

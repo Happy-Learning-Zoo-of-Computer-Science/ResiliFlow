@@ -1,11 +1,12 @@
 {
   "appId": "resiliflow",
   "files": [
-    "build/electron",
-    "build/renderer"
+    "build/**/*"
   ],
   "extraResources": [
-    "build/electron/preload.cjs"
+    "build/electron/preload.cjs",
+    ".env",
+    "run"
   ],
   "mac": {
     "target": "dmg"

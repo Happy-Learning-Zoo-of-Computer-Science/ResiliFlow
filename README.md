@@ -47,13 +47,15 @@ To install and run the application locally, follow these steps:
 
 ## Development
 
-1. Start the application:
+1. Create a .env file and include the `BACKEND_EXECUTABLE_PATH` variable. Executables will be created automatically when you push your code to the back-end repository. You can download it from the [web page](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/actions) or by using `gh`.
+
+2. Start the application:
 
     ```sh
     npm run dev
     ```
 
-2. Use the interface to create, load, or import projects.
+3. Use the interface to create, load, or import projects.
 
 ## Scripts
 

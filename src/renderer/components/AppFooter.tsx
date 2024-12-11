@@ -1,5 +1,5 @@
 const AppFooter: React.FC = () => {
-  return <div>Footer</div>
+  return <div>Happy Learning Zoo of Computer Science</div>
 }
 
 export default AppFooter
