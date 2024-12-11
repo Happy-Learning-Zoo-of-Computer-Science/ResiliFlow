@@ -8,6 +8,7 @@ const CreateProject: React.FC = () => {
   const [folderPath, setFolderPath] = useState<string>('')
   const [folderIsInitialized, setFolderIsInitialized] = useState<boolean>(false)
   const [selectedLanguage, setSelectedLanguage] = useState<string>('')
+  const [selectedFramework, setSelectedFramework] = useState<string>('')
   const [selectedConfigurations, setSelectedConfigurations] = useState<
     string[]
   >([])
@@ -27,6 +28,8 @@ const CreateProject: React.FC = () => {
       <SelectLanguage
         selectedLanguage={selectedLanguage}
         setSelectedLanguage={setSelectedLanguage}
+        selectedFramework={selectedFramework}
+        setSelectedFramework={setSelectedFramework}
       />
       <SelectConfigurations
         selectedLanguage={selectedLanguage}
