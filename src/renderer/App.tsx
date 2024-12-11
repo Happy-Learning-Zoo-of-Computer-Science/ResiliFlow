@@ -2,10 +2,10 @@ import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import {Layout, Menu} from 'antd';
 import {HomeOutlined, ProjectOutlined} from '@ant-design/icons';
 
-import ChooseProject from './pages/SelectProject';
-import CreateProject from './pages/CreateProject';
-import LoadProject from './pages/LoadProject';
-import ImportProject from './pages/ImportProject';
+import ChooseProject from './pages/project/SelectProject';
+import CreateProject from './pages/project/CreateProject';
+import LoadProject from './pages/project/LoadProject';
+import ImportProject from './pages/project/ImportProject';
 import Inspection from './pages/Inspection';
 import Report from './pages/Report';
 import PipelineEditor from './pages/pipeline/PipelineEditor';

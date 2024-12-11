@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import SelectFolder from './SelectFolder'
-import SelectLanguage from './SelectLanguage'
-import SelectConfigurations from './SelectConfigurations'
-import SelectTemplates from './SelectTemplates'
+import SelectFolder from '../../components/project/SelectFolder'
+import SelectLanguage from '../../components/project/SelectLanguage'
+import SelectConfigurations from '../../components/project/SelectConfigurations'
+import SelectTemplates from '../../components/project/SelectTemplates'
 
 const CreateProject: React.FC = () => {
   const [folderPath, setFolderPath] = useState<string>('')
