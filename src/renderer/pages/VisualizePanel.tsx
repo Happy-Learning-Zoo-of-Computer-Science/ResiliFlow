@@ -25,6 +25,7 @@ export const VisualizePanel: React.FC = () => {
     ['Test', 'pytest'],
     ['Lint', "pylint $(git ls-files '*.py')"],
   ]
+  //todo node and edge should be pass as a props, and the parent component should handle the state
   const initialNodes: Node[] = [
     {
       id: '1',
