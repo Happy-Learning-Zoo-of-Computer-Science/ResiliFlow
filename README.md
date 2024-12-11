@@ -47,7 +47,7 @@ To install and run the application locally, follow these steps:
 
 ## Development
 
-1. Create a .env file and include the `BACKEND_EXECUTABLE_PATH` variable. Executables will be created automatically when you push your code to the back-end repository. You can download it from the [web page](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/actions) or by using `gh`.
+1. Create a .env file and include the `BACKEND_EXECUTABLE_PATH` variable. Executables will be created automatically when you push your code to the back-end repository. You can download it from the [web page](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/actions) or run ResiliFlow_back manually.
 
 2. Start the application:
 
@@ -60,9 +60,9 @@ To install and run the application locally, follow these steps:
 ## Scripts
 
 - `npm run dev: Run the development server for both React and Electron.`
-- `npm run build: Build the React application.`
-- `npm run transpile:electron: Transpile Electron files.`
+- `npm run build: Build the React and Electron application.`
 - `npm run dist:mac-arm: Build and package the application for macOS ARM64.`
+- `npm run test: Test the project`
 
 ## Contributing
 
