@@ -4,10 +4,12 @@ import "jest";
 class Address {
     street: string;
     city: string;
+    properties: Record<string, any>;
 
-    constructor(street: string = "", city: string = "") {
+    constructor(street: string = "", city: string = "", properties: Record<string, any> = {}) {
         this.street = street;
         this.city = city;
+        this.properties = properties;
     }
 }
 
@@ -32,7 +34,7 @@ describe("Serializer Class", () => {
     };
 
     test("should serialize and deserialize a simple object", () => {
-        const address = new Address("123 Main St", "Springfield");
+        const address = new Address("123 Main St", "Springfield", {"test1": 1, "test2": "answer2"});
         const user = new User("John Doe", 30, address, ["reading", "coding"]);
 
         // Serialize the object
@@ -46,6 +48,7 @@ describe("Serializer Class", () => {
         expect(deserializedUser.age).toBe(30);
         expect(deserializedUser.address).toBeInstanceOf(Address);
         expect(deserializedUser.address.street).toBe("123 Main St");
+        expect(deserializedUser.address.properties).toStrictEqual({"test1": 1, "test2": "answer2"});
         expect(deserializedUser.hobbies).toEqual(["reading", "coding"]);
     });
 

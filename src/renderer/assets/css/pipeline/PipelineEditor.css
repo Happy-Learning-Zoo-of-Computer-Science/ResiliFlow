@@ -1,0 +1,12 @@
+.full-height-scroll {
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /*white-space: nowrap;*/
+    box-sizing: border-box;
+}
+
+.phase-space {
+    width: 600px;
+    height: 100%;
+}
