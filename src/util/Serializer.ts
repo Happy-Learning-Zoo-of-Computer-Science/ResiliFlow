@@ -8,7 +8,7 @@ class Serializer {
      */
     static serialize(obj: any): string {
         return yaml.dump(obj, {
-            replacer: (key, value) => {
+            replacer: (key: any, value: any) => {
                 if (Array.isArray(value)) {
                     return value; // Do not add __class for arrays
                 }
