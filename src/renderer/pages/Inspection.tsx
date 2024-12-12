@@ -40,8 +40,7 @@ const handleMenuClick = (
       console.log('run')
       break
     case 'edit':
-      //todo redirect to edit pipeline
-      console.log('edit')
+      navigate('/visualize')
       break
     case 'view':
       navigate('/report/' + pipelineId)
