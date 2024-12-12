@@ -28,16 +28,19 @@ const SelectLanguage: React.FC<SelectLanguageProps> = ({
       const fetchedLanguages = await fetchLanguages()
       setLanguages(fetchedLanguages)
       setSelectedLanguage(fetchedLanguages[0])
-      console.log("Reset framework");
     }
     loadLanguages();
-  }, []);
+  }, [setSelectedLanguage]);
 
   // Fetch available frameworks.
   const [frameworks, setFrameworks] = useState<string[]>([])
 
   // Update frameworks when language changes.
   useEffect(() => {
+
+    // Only reset frameworks when language changes.
+    if (!selectedLanguage) return;
+
     const loadFrameworks = async () => {
       const fetchedFrameworks = await fetchFrameworks(selectedLanguage);
       setFrameworks(fetchedFrameworks);
