@@ -12,7 +12,7 @@ import Home from './pages/Home';
 import AppFooter from './components/AppFooter';
 
 import './assets/css/App.css'
-import { SideBar } from './components/SIderBar';
+import { SideBar } from './components/SiderBar';
 import { VisualizePanel } from './pages/VisualizePanel'
 
 const { Content, Footer } = Layout
