@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Button } from 'antd'
 
 interface SelectConfigurationsProps {
-  selectedLanguage: string
+  selectedLanguage: string, 
+  selectedFramework: string,
   setSelectedConfigurations: React.Dispatch<React.SetStateAction<string[]>>
 }
 
@@ -14,6 +15,7 @@ interface SelectConfigurationsProps {
  */
 const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
   selectedLanguage,
+  selectedFramework,
   setSelectedConfigurations,
 }) => {
 
@@ -23,14 +25,14 @@ const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
   // Get supported configuration files for the selected language.
   const [configurations, setConfigurations] = useState<{ [key: string]: any }>({});
   useEffect(() => {
-    fetchConfigurations(selectedLanguage).then((configurations) => {
+    fetchConfigurations(selectedLanguage, selectedFramework).then((configurations) => {
       setConfigurations(configurations);
       setVariants(Object.keys(configurations).reduce((acc, key) => {
         acc[key] = 'outlined';
         return acc;
       }, {} as { [key: string]: 'outlined' | 'solid' }));
     });
-  }, [selectedLanguage]);
+  }, [selectedLanguage, selectedFramework]);
 
   // Handle function to update the selected configurations. 
   const handle = (configuration: string) => {
@@ -66,13 +68,19 @@ const SelectConfigurations: React.FC<SelectConfigurationsProps> = ({
  */
 const fetchConfigurations = async (
   selectedLanguage: string,
+  selectedFramework: string,
 ): Promise<Object> => {
   if (selectedLanguage === 'None') {
     return {} as Object;
   }
 
   try {
-    const url = `http://127.0.0.1:5000/api/project/configurations/supported?language=${encodeURIComponent(selectedLanguage)}`;
+    let url: string;
+    if (selectedFramework === '') {
+      url = `http://127.0.0.1:5000/api/project/configurations/supported?language=${encodeURIComponent(selectedLanguage)}`;
+    } else {
+      url = `http://127.0.0.1:5000/api/project/configurations/supported?language=${encodeURIComponent(selectedLanguage)}&framework=${encodeURIComponent(selectedFramework)}`;
+    }
     const response = await fetch(url);
 
     if (!response.ok) {

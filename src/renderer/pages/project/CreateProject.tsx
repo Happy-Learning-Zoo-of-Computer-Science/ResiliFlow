@@ -87,6 +87,7 @@ const CreateProject: React.FC = () => {
       />
       <SelectConfigurations
         selectedLanguage={selectedLanguage}
+        selectedFramework={selectedFramework}
         setSelectedConfigurations={setSelectedConfigurations}
       />
       <SelectTemplates
