@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { Layout } from 'antd'
 
-import ChooseProject from './pages/project/SelectProject';
-import CreateProject from './pages/project/CreateProject';
-import LoadProject from './pages/project/LoadProject';
-import ImportProject from './pages/project/ImportProject';
-import Inspection from './pages/Inspection';
-import Report from './pages/Report';
-import PipelineEditor from './pages/pipeline/PipelineEditor';
-import Home from './pages/Home';
-import AppFooter from './components/AppFooter';
+import ChooseProject from './pages/project/SelectProject'
+import CreateProject from './pages/project/CreateProject'
+import LoadProject from './pages/project/LoadProject'
+import ImportProject from './pages/project/ImportProject'
+import Inspection from './pages/Inspection'
+import Report from './pages/Report'
+import PipelineEditor from './pages/pipeline/PipelineEditor'
+import Home from './pages/Home'
+import AppFooter from './components/AppFooter'
 
 import './assets/css/App.css'
-import { SideBar } from './components/SiderBar';
+import { SideBar } from './components/SiderBar'
 import { VisualizePanel } from './pages/VisualizePanel'
 
 const { Content, Footer } = Layout
