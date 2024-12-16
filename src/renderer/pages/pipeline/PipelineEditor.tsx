@@ -215,6 +215,7 @@ const PipelineEditor: React.FC = () => {
             const result = await window.electronAPI.saveTextFile(yamlString, options);
             if (result === null) {
                 message.warning("Save pipeline cancelled");
+                return null;
             }
             message.success("File saved successfully");
             setFilePath(result);
@@ -223,14 +224,14 @@ const PipelineEditor: React.FC = () => {
             console.error("Failed to save file:", error);
             message.error("Failed to save file");
         }
-        return ""
+        return null;
     };
 
     const handleCompile = async () => {
-        var path = filePath;
-        if (path === "") {
+        var path: string | null = filePath;
+        if (path === null || path === "") {
             path = await handleSaveToFile();
-            if (path === "") {
+            if (path === null || path === "") {
                 return;
             }
         }
@@ -245,6 +246,11 @@ const PipelineEditor: React.FC = () => {
         }
 
         const output = await window.electronAPI.selectSavePath(options);
+
+        if (output === null || output === "") {
+            message.warning("Save pipeline cancelled");
+            return null;
+        }
 
         const result = await fetch(`http://127.0.0.1:5000/api/pipeline/compile?input=${encodeURI(path)}&output=${encodeURI(output)}`);
 
