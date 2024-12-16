@@ -124,6 +124,7 @@ const PipelineEditor: React.FC = () => {
         const yamlString = Serializer.serialize(data);
         setYamlContent(yamlString);
         setIsSaveModalVisible(true);
+        return yamlString;
     };
 
     const handleLoad = () => {
@@ -197,8 +198,9 @@ const PipelineEditor: React.FC = () => {
     };
 
     const handleSaveToFile = async () => {
+        let yamlString = yamlContent;
         if (!isSaveModalVisible) {
-            handleSave();
+            yamlString = handleSave();
         }
         try {
             const options = {
@@ -209,7 +211,7 @@ const PipelineEditor: React.FC = () => {
                     {name: 'All Files', extensions: ['*']}
                 ]
             }
-            const result = await window.electronAPI.saveTextFile(yamlContent, options);
+            const result = await window.electronAPI.saveTextFile(yamlString, options);
             if (result === null) {
                 message.warning("Save pipeline cancelled");
             }
@@ -255,7 +257,7 @@ const PipelineEditor: React.FC = () => {
     return (
         <div style={{width: "100%", height: "100%", display: "flex", flexDirection: "column", overflow: "hidden"}}>
             <Space direction="horizontal" style={{marginBottom: 16}}>
-                <Button type="primary" onClick={handleSave}>Save</Button>
+                <Button type="primary" onClick={handleSaveToFile}>Save</Button>
                 <Button onClick={handleLoad}>Load</Button>
                 <Button onClick={handleCompile}>Compile</Button>
             </Space>
