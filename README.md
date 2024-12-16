@@ -18,12 +18,6 @@ ResiliFlow is an Electron application designed to help users create, load, and m
 
 ## Installation
 
-### Executable
-
-Download the [latest release]() (only for Mac).
-
-### Clone
-
 To install and run the application locally, follow these steps:
 
 1. Clone the repository:
@@ -46,33 +40,28 @@ To install and run the application locally, follow these steps:
    npm run build
    ```
 
-4. Package the application for distribution:
-
+4. Install the [backend](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/tree/v1.0.0):
     ```sh
-    npm run dist:mac-arm
-    ```
-
-5. Install [backend](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back):
-    ```sh
+    cd ..
     git clone https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back.git
     cd resiliflow_back
     ```
 
-6. Install dependencies:
+5. Install dependencies:
     ```sh
     # Python version 3.12.1
     # Use virtual environment if you want.
     pip install requirements.txt
     ```
 
-7. Start backend service:
+6. Start backend service:
     ```sh
     python app.py
     ```
 
-8. Start frontend service:
+7. Start frontend service:
     ```sh
-    cd resiliflow
+    cd ../resiliflow
     npm run dev
     ```
 
@@ -93,28 +82,6 @@ To install and run the application locally, follow these steps:
 ## Development
 
 To run this program in development environment, Choose either methods below:
-
-### Method 1: Download a backend executable
-
-1. Create a .env file and include the `BACKEND_EXECUTABLE_PATH` variable. Executables will be created automatically when you push your code to the back-end repository. You can download it from the [web page](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/actions) or run ResiliFlow_back manually.
-
-2. Start the application:
-
-    ```sh
-    npm run dev
-    ```
-
-3. Use the interface to create, load, or import projects.
-
-### Method 2: Use backend submodule
-
-1. Navigate to `backend/`:
-   ```shell
-   cd backend/
-   ```
-2. Checkout your desired backend version
-3. Remove `BACKEND_EXECUTABLE_PATH` from your `.env` file and environment variables, if you have previously done so
-4. Continue from Method 1: Step 2
 
 ## Scripts
 
