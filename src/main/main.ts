@@ -5,6 +5,7 @@ import { startBackendService, stopBackendService } from "./utils/backendRunner.j
 import { registerOpenDirectoryIpcHandler } from "./ipcs/OpenDirectoryIpc.js";
 import {registerReadTextFileIpcHandler} from "./ipcs/ReadTextFile.js";
 import {registerSaveTextFileIpcHandler} from "./ipcs/SaveTextFile.js";
+import {registerSelectSavePathIpcHandler} from "./ipcs/SelectSavePath.js";
 
 const backendService = startBackendService();
 
@@ -29,6 +30,7 @@ app.whenReady().then(() => {
   registerOpenDirectoryIpcHandler(mainWindow);
   registerReadTextFileIpcHandler(mainWindow);
   registerSaveTextFileIpcHandler(mainWindow);
+  registerSelectSavePathIpcHandler(mainWindow);
 });
 
 app.on("window-all-closed", () => {

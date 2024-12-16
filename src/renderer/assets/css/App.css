@@ -21,3 +21,8 @@
     flex-direction: column;
     margin-left: 200px;
 }
+
+.main-footer {
+    text-align: center;
+    margin-top: 15px;
+}

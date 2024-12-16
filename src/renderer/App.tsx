@@ -32,14 +32,14 @@ const App = () => {
               <Route path="/import-project" element={<ImportProject />} />
               <Route path="/inspection" element={<Inspection />} />
               <Route path="/report/:pipelineId" element={<Report />} />
-              <Route path="visualize" element={<VisualizePanel />} />
+              <Route path="/visualize" element={<VisualizePanel />} />
               <Route path="/pipeline" element={<PipelineEditor />} />
               <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>
+            <Footer className="main-footer" >
+              <AppFooter />
+            </Footer>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            <AppFooter />
-          </Footer>
         </Layout>
       </Layout>
     </Router>

@@ -1,7 +1,8 @@
 interface Window {
     electronAPI: {
         selectFolder: () => Promise<string>;
-        readTextFile: () => Promise<string>;
-        saveTextFile: (content: string) => Promise<string>;
+        readTextFile: (options: any) => Promise<string>;
+        saveTextFile: (content: string, options: any, filePath: string = "") => Promise<string>;
+        selectSavePath: (options: any) => Promise<string>;
     }
 }
