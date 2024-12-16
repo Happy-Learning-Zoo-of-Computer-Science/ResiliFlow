@@ -161,8 +161,9 @@ const PipelineEditor: React.FC = () => {
             if (!isValidNodeDataArray) {
                 throw new Error('Deserialized data items are not valid NodeData instances.');
             }
-            setData([]);
             setData(deserializedData);
+            setNodes(nodeDataToReactFlowNodes(deserializedData));
+            setEdges(createEdgesFromNodeData(deserializedData));
             message.success('Load successfully');
             setIsLoadModalVisible(false);
         } catch (error) {
