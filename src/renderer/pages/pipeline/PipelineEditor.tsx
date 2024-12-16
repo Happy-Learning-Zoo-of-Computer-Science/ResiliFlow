@@ -197,6 +197,9 @@ const PipelineEditor: React.FC = () => {
     };
 
     const handleSaveToFile = async () => {
+        if (!isSaveModalVisible) {
+            handleSave();
+        }
         try {
             const options = {
                 title: "Save Pipeline",
@@ -292,9 +295,6 @@ const PipelineEditor: React.FC = () => {
                     </Button>,
                     <Button key="saveToFile" onClick={handleSaveToFile}>
                         Save
-                    </Button>,
-                    <Button key="saveToFile" onClick={handleSaveToFile}>
-                        Save As
                     </Button>,
                     <Button key="close" onClick={handleSaveModalCancel}>
                         Close
