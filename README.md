@@ -10,13 +10,19 @@ ResiliFlow is an Electron application designed to help users create, load, and m
 - Load existing projects
 - Import projects
 - Select programming languages and configurations
-- Generate pipeline templates
-- Edit Pipeline templates
+- Generate pipeline using pre-defined templates
+- Edit pipelines
 - Integrate with Github CI/CD actions
 - Visualize security report
 - ~~Learning Hub~~
 
 ## Installation
+
+### Executable
+
+Download the [latest release]() (only for Mac).
+
+### Clone
 
 To install and run the application locally, follow these steps:
 
@@ -30,6 +36,7 @@ To install and run the application locally, follow these steps:
 2. Install dependencies:
 
     ```sh
+    # Node.js version 23.1.0
     npm install
     ```
 
@@ -39,11 +46,49 @@ To install and run the application locally, follow these steps:
    npm run build
    ```
 
-4. *Package the application for distribution:
+4. Package the application for distribution:
 
     ```sh
     npm run dist:mac-arm
     ```
+
+5. Install [backend](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back):
+    ```sh
+    git clone https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back.git
+    cd resiliflow_back
+    ```
+
+6. Install dependencies:
+    ```sh
+    # Python version 3.12.1
+    # Use virtual environment if you want.
+    pip install requirements.txt
+    ```
+
+7. Start backend service:
+    ```sh
+    python app.py
+    ```
+
+8. Start frontend service:
+    ```sh
+    cd resiliflow
+    npm run dev
+    ```
+
+## Test
+
+### Unit test
+1. Clone the repository and install dependencies.
+
+2. Direct to the project folder.
+
+3. Run unit tests:
+    ```sh
+    npm run test
+    ```
+
+4. If the test fails, please check is port 5000 occupied.
 
 ## Development
 
