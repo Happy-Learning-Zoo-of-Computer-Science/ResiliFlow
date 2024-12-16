@@ -1,4 +1,11 @@
-import { HomeOutlined, ProjectOutlined } from '@ant-design/icons'
+import {
+  ApartmentOutlined,
+  ControlOutlined,
+  HomeOutlined,
+  InsertRowAboveOutlined,
+  MacCommandOutlined,
+  ProjectOutlined
+} from '@ant-design/icons'
 import { Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { useEffect, useState } from 'react'
@@ -11,34 +18,34 @@ const menuItems = [
   },
   {
     key: '/create-project',
-    icon: <ProjectOutlined />,
-    label: <Link to="/create-project">Create Project</Link>,
+    icon: <ControlOutlined />,
+    label: <Link to="/create-project">Project Configuration</Link>,
   },
-  {
-    key: '/choose-project',
-    icon: <ProjectOutlined />,
-    label: <Link to="/choose-project">Choose Project</Link>,
-  },
+  // {
+  //   key: '/choose-project',
+  //   icon: <ProjectOutlined />,
+  //   label: <Link to="/choose-project">Choose Project</Link>,
+  // },
   {
     key: '/pipeline',
-    icon: <ProjectOutlined />,
-    label: <Link to="/pipeline">Pipeline Editor</Link>,
+    icon: <ApartmentOutlined />,
+    label: <Link to="/pipeline">Visual Script Management</Link>,
   },
   {
     key: '/inspection',
-    icon: <ProjectOutlined />,
+    icon: <InsertRowAboveOutlined />,
     label: <Link to="/inspection">Inspection</Link>,
   },
-  {
-    key: '/report',
-    icon: <ProjectOutlined />,
-    label: <Link to="/report">Report</Link>,
-  },
-  {
-    key: '/visualize',
-    icon: <ProjectOutlined />,
-    label: <Link to="/visualize">Visualize</Link>,
-  },
+  // {
+  //   key: '/report',
+  //   icon: <ProjectOutlined />,
+  //   label: <Link to="/report">Report</Link>,
+  // },
+  // {
+  //   key: '/visualize',
+  //   icon: <ProjectOutlined />,
+  //   label: <Link to="/visualize">Visualize</Link>,
+  // },
 ]
 export const SideBar: React.FC = () => {
   const location = useLocation()
@@ -48,7 +55,7 @@ export const SideBar: React.FC = () => {
     setSelectedKey(location.pathname)
   }, [location.pathname])
   return (
-    <Sider className="main-layout-sider">
+    <Sider width={260} className="main-layout-sider">
       <Menu
         theme="dark"
         selectedKeys={[selectedKey]}
