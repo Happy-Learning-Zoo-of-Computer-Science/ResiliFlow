@@ -1,0 +1,3 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back.git

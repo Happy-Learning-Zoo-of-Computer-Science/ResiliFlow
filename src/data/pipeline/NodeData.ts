@@ -8,17 +8,23 @@ abstract class NodeData<T extends NodeConfig> {
     label: string;
     position: Position;
     config: T;
+    inputPort?: string;
+    outputPort?: string;
 
     constructor(
         id: string = "",
         label: string = "",
         position: Position = {x:0, y:0},
-        config?: T
+        config?: T,
+        inputPort: string = "",
+        outputPort: string = "",
     ) {
         this.id = id != "" ? id : uuidv4().toString();
         this.label = label;
         this.position = position;
         this.config = config ?? this.getDefaultConfig();
+        this.inputPort = inputPort;
+        this.outputPort = outputPort;
     }
 
     protected abstract getDefaultLabel(): string;
