@@ -1,19 +1,27 @@
-import { isDev } from "./utils.js";
+import {isDev} from "./utils.js";
 import * as child from 'child_process';
-import { app } from "electron";
+import {app} from "electron";
 import path from "path";
 import kill from "tree-kill";
 import 'dotenv/config'
+import * as fs from "node:fs";
 
 export function startBackendService(): child.ChildProcess {
-    const startProcess = (command: string): child.ChildProcess => {
-        const process = child.spawn(command);
+    const startProcess = (command: string, options?: string[]): child.ChildProcess => {
+        const process = child.spawn(command, options);
         process.stdout!.on('data', (data: string) => {
             console.log("data: ", data.toString());
         });
         process.stderr!.on('data', (data: string) => {
             console.log(`stderr: ${data}`);
         });
+        process.on('error', (err) => {
+            console.error(`Child process error: ${err}`);
+        });
+        process.on('exit', (code) => {
+            console.log(`Child process exited: ${code}`);
+        });
+
         console.log("Python server started");
         return process;
     };
@@ -22,9 +30,14 @@ export function startBackendService(): child.ChildProcess {
     if (isDev()) {
         const backendExecutablePath = process.env.BACKEND_EXECUTABLE_PATH;
         if (!backendExecutablePath) {
-            console.error("Error: Environment variable 'BACKEND_EXECUTABLE_PATH' is not set in .env file.");
-        }
-        else {
+            const runPyInSubmodulePath = path.join(app.getAppPath(), "backend", "run.py");
+            console.log(runPyInSubmodulePath);
+            if (fs.existsSync(runPyInSubmodulePath)) {
+                startProcess("python3", [runPyInSubmodulePath]);
+            } else {
+                console.error("Error: Environment variable 'BACKEND_EXECUTABLE_PATH' is not set in .env file.");
+            }
+        } else {
             console.log(`Starting backend application from: ${backendExecutablePath}`);
             python = startProcess(backendExecutablePath);
         }
