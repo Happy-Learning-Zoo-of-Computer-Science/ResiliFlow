@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, message, Modal, Space} from "antd";
+import {Button, message, Modal, Select, Space} from "antd";
 import {
     ReactFlow,
     type Node as RFNode,
@@ -14,45 +14,54 @@ import {
 } from '@xyflow/react'
 
 import "../../assets/css/pipeline/PipelineEditor.css"
-import {NodeData} from "../../../data/pipeline/NodeData";
+import {NodeData, NodeDataConstructor} from "../../../data/pipeline/NodeData";
 import {SetupPythonNodeData} from "../../../data/pipeline/nodes/SetupPythonNodeData";
 import {InstallDependenciesNodeData} from "../../../data/pipeline/nodes/InstallDependenciesNodeData";
 import {RunPyLintNodeData} from "../../../data/pipeline/nodes/RunPyLintNodeData";
 import Serializer from "../../../util/Serializer";
 import TextArea from "antd/es/input/TextArea";
 import NodeProperty from "../../components/pipeline/NodeProperty";
+import {Option} from "antd/es/mentions";
 
 
-const PipelineEditor: React.FC = () => {
-    const x = [
-        new SetupPythonNodeData(),
-        new InstallDependenciesNodeData(),
-        new RunPyLintNodeData(),
-    ]
-    x[0].outputPort = x[1].id;
-    x[1].inputPort = x[0].id;
-    x[1].outputPort = x[2].id;
-    x[2].inputPort = x[1].id;
-    x[0].position = {x: 100, y: 100};
-    x[1].position = {x: 100, y: 200};
-    x[2].position = {x: 100, y: 300};
+interface PipelineEditorProps {
+    folderPath: string;
+}
 
-    const [data, setData] = useState<NodeData<any>[]>(x);
+const pipelineNodes: Record<string, NodeDataConstructor> = {
+    SetupPython: SetupPythonNodeData,
+    InstallDependencies: InstallDependenciesNodeData,
+    RunPyLintNodeData: RunPyLintNodeData,
+}
 
-    const initialNodes = nodeDataToReactFlowNodes(data);
-    const initialEdges = createEdgesFromNodeData(data);
 
-    const [nodes, setNodes] = useState<RFNode[]>(initialNodes);
-    const [edges, setEdges] = useState<RFEdge[]>(initialEdges);
+const PipelineEditor: React.FC<PipelineEditorProps> = ({folderPath}) => {
+    const [pipelineName, setPipelineName] = useState<string>("untitled");
+    const [data, setData] = useState<NodeData<any>[]>(() => {
+        const x = [
+            new SetupPythonNodeData(),
+            new InstallDependenciesNodeData()
+        ]
+        x[0].outputPort = x[1].id;
+        x[1].inputPort = x[0].id;
+        x[0].position = {x: 100, y: 100};
+        x[1].position = {x: 100, y: 200};
+        return x;
+    });
+    const [nodes, setNodes] = useState<RFNode[]>(() => nodeDataToReactFlowNodes(data));
+    const [edges, setEdges] = useState<RFEdge[]>(() => createEdgesFromNodeData(data));
 
+    // Used in ReactFlow for selected node in Flow chart
     const [selectedNode, setSelectedNode] = useState<NodeData<any>>();
+    const [deletedNodeIds, setDeletedNodeIds] = useState<string[]>([]);
+
+    // Used in create new node dropdown menu
+    const [selectedNodeType, setSelectedNodeType] = useState<string>("SetupPython");
 
     function onNodeSelect(event: React.MouseEvent, node: RFNode): void {
-        console.log(node, data);
         const nodeInfo = data.find(
             (element) => element.id === node.id,
         )
-        console.log("setSelectedNode", nodeInfo);
         setSelectedNode(nodeInfo);
     }
 
@@ -73,15 +82,24 @@ const PipelineEditor: React.FC = () => {
 
     const handleNodesChange: OnNodesChange = (changes) => {
         setNodes((currentNodes) => {
-            const updatedNodes = applyNodeChanges(changes, currentNodes);
-            // 将updatedNodes的位置等属性同步回data
-            const updatedData = data.map(d => {
+            const updatedNodes = applyNodeChanges(changes, currentNodes).filter(
+                (node) => !deletedNodeIds.includes(node.id)
+            );
+            let updatedData = data.map(d => {
                 const matchingNode = updatedNodes.find(n => n.id === d.id);
                 if (matchingNode) {
                     d.position = matchingNode.position;
                 }
                 return d;
-            });
+            }).filter(
+                (nodeData) => !deletedNodeIds.includes(nodeData.id)
+            );
+
+            if (deletedNodeIds.length > 0) {
+                updatedData = deleteNodeHelper(updatedData, deletedNodeIds);
+                setDeletedNodeIds([]);
+            }
+
             setData(updatedData);
             return updatedNodes;
         });
@@ -115,6 +133,46 @@ const PipelineEditor: React.FC = () => {
         });
     };
 
+    const handleAddNode = () => {
+        const NodeClass = pipelineNodes[selectedNodeType];
+        if (!NodeClass) {
+            message.error("Invalid node type selected.");
+            return;
+        }
+
+        const newNode = new NodeClass();
+        newNode.position = {x: 50, y: 50};
+
+        const updatedData = [...data, newNode];
+        setData(updatedData);
+
+        const updatedNodes = nodeDataToReactFlowNodes(updatedData);
+        setNodes(updatedNodes);
+
+        message.success(`${selectedNodeType} node added at position (50, 50).`);
+    };
+
+    const handleNodesDelete = (deletedNodes: RFNode[]) => {
+        const deletedIds = deletedNodes.map((node) => node.id);
+        setDeletedNodeIds(deletedIds);
+        setSelectedNode(undefined);
+        const updatedData = deleteNodeHelper(data.filter(
+            (data) => !deletedIds.includes(data.id)
+        ), deletedIds);
+        setData(updatedData);
+        setNodes(nodeDataToReactFlowNodes(updatedData));
+        setEdges(createEdgesFromNodeData(updatedData));
+    };
+
+    const deleteNodeHelper = (updatedData: NodeData<any>[], deletedNodeIds: string[]) => {
+        for (let i = 0; i < updatedData.length; ++i) {
+            if (deletedNodeIds.includes(updatedData[i].inputPort ?? "")) updatedData[i].inputPort = undefined;
+            if (deletedNodeIds.includes(updatedData[i].outputPort ?? "")) updatedData[i].outputPort = undefined;
+        }
+
+        return updatedData;
+    }
+
     const [isSaveModalVisible, setIsSaveModalVisible] = useState(false);
     const [isLoadModalVisible, setIsLoadModalVisible] = useState(false);
     const [yamlContent, setYamlContent] = useState('');
@@ -145,7 +203,6 @@ const PipelineEditor: React.FC = () => {
         try {
             // @ts-ignore TODO: solve TS2345 for classMap
             const deserializedData = Serializer.deserialize<NodeData<any>[]>(yamlContent, classMap);
-            console.log(deserializedData);
 
             // Check if deserializedData is an array and not empty
             if (!Array.isArray(deserializedData) || deserializedData.length === 0) {
@@ -261,6 +318,20 @@ const PipelineEditor: React.FC = () => {
                 <Button type="primary" onClick={handleSaveToFile}>Save</Button>
                 <Button onClick={handleLoad}>Load</Button>
                 <Button onClick={handleCompile}>Compile</Button>
+                <Select
+                    defaultValue="SetupPython"
+                    style={{width: 200}}
+                    onChange={(value) => setSelectedNodeType(value)}
+                >
+                    {Object.keys(pipelineNodes).map((key) => (
+                        <Option key={key} value={key}>
+                            {key}
+                        </Option>
+                    ))}
+                </Select>
+                <Button type="primary" onClick={handleAddNode}>
+                    Add Node
+                </Button>
             </Space>
             <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
                 <div style={{flex: 1}}>
@@ -272,6 +343,7 @@ const PipelineEditor: React.FC = () => {
                         onEdgesChange={handleEdgesChange}
                         onConnect={onConnect}
                         onNodeClick={onNodeSelect}
+                        onNodesDelete={handleNodesDelete}
                     >
                         <Background
                             gap={16}
@@ -361,7 +433,6 @@ function nodeDataToReactFlowNodes(data: NodeData<any> []): RFNode[] {
 
 function createEdgesFromNodeData(data: NodeData<any> []): RFEdge[] {
     const edges: RFEdge[] = [];
-    console.log(data);
     data.forEach((sourceNodeData) => {
         const sourceId = sourceNodeData.id;
         const {outputPort} = sourceNodeData;

@@ -40,5 +40,7 @@ abstract class NodeData<T extends NodeConfig> {
     }
 }
 
+type NodeDataConstructor = new () => NodeData<any>;
+
 export {NodeData};
-export type { NodeConfig };
+export type { NodeConfig, NodeDataConstructor };

@@ -5,8 +5,15 @@ import SelectLanguage from '../../components/project/SelectLanguage'
 import SelectConfigurations from '../../components/project/SelectConfigurations'
 import SelectTemplates from '../../components/project/SelectTemplates'
 
-const CreateProject: React.FC = () => {
-  const [folderPath, setFolderPath] = useState<string>('')
+interface CreateProjectProps {
+  folderPath: string,
+  setFolderPath: (path: string) => void,
+}
+
+const CreateProject: React.FC<CreateProjectProps> = ({
+      folderPath,
+      setFolderPath
+}) => {
   const [folderIsInitialized, setFolderIsInitialized] = useState<boolean>(false)
   const [selectedLanguage, setSelectedLanguage] = useState<string>('')
   const [selectedFramework, setSelectedFramework] = useState<string>('')
@@ -23,7 +30,7 @@ const CreateProject: React.FC = () => {
   /**
    * Create a POST request to the backend to create a new project.
   */
-  const createProject = async () => { 
+  const createProject = async () => {
 
     // If folder not selected, change the button color to red and return.
     if (!folderPath) {
@@ -31,7 +38,7 @@ const CreateProject: React.FC = () => {
       setCreateProjectButtonColor('danger');
       return;
     }
-    
+
     // If the folder is initialized, change the button color to red and return.
     if (folderIsInitialized) {
       setCreateProjectButtonColor('danger');
@@ -74,8 +81,8 @@ const CreateProject: React.FC = () => {
 
   return (
     <div>
-      <SelectFolder 
-        folderPath={folderPath} 
+      <SelectFolder
+        folderPath={folderPath}
         setFolderPath={setFolderPath}
         setFolderIsInitialized={setFolderIsInitialized}
       />
