@@ -1,6 +1,6 @@
 import React, {Component, ChangeEvent} from "react";
-import {Input, Form, Collapse} from "antd";
-import {NodeConfig, NodeData} from "../../../../data/pipeline/NodeData";
+import {Input, Form, Collapse, Card} from "antd";
+import {NodeConfig, NodeData} from "../../../data/pipeline/NodeData";
 
 interface NodeProps {
     data: NodeData<any>;
@@ -10,7 +10,7 @@ interface NodeState {
     config: NodeConfig;
 }
 
-class Node extends Component<NodeProps, NodeState> {
+class NodeProperty extends Component<NodeProps, NodeState> {
     constructor(props: NodeProps) {
         super(props);
         this.state = {
@@ -72,19 +72,11 @@ class Node extends Component<NodeProps, NodeState> {
 
     render() {
         return (
-            <Collapse
-                collapsible="header"
-                defaultActiveKey={['1']}
-                items={[
-                    {
-                        key: this.props.data.id,
-                        label: this.getLabel(),
-                        children: this.renderChildren(),
-                    },
-                ]}
-            />
+            <Card title={`${this.getLabel()} (${this.props.data.position.x}, ${this.props.data.position.y})`}>
+                {this.renderChildren()}
+            </Card>
         );
     }
 }
 
-export default Node;
+export default NodeProperty;
