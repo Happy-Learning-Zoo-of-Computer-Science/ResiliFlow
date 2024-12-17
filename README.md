@@ -40,15 +40,14 @@ To install and run the application locally, follow these steps:
    npm run build
    ```
 
-4. Install the [backend](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/tree/v1.0.0):
+4. Initiate submodule to pull the [backend](https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back/tree/v1.0.0):
     ```sh
-    cd ..
-    git clone https://github.com/Happy-Learning-Zoo-of-Computer-Science/ResiliFlow_back.git
-    cd resiliflow_back
+    git submodule update --init --recursive
     ```
 
 5. Install dependencies:
     ```sh
+   cd backend/
     # Python version 3.12.1
     # Use virtual environment if you want.
     pip install requirements.txt
@@ -61,7 +60,7 @@ To install and run the application locally, follow these steps:
 
 7. Start frontend service:
     ```sh
-    cd ../resiliflow
+    cd ..
     npm run dev
     ```
 
