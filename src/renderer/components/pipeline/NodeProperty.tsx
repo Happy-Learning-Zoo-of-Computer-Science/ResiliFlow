@@ -41,13 +41,11 @@ class NodeProperty extends Component<NodeProps, NodeState> {
 
     handleSave = () => {
         const {config} = this.state;
-        this.props.data.config = config; // 保存到原始 NodeData 中
-        console.log("Updated config:", config);
+        this.props.data.config = config;
     };
 
     getLabel = () => {
         const label = this.props.data.getLabel();
-        console.log("getLabel", label);
         return label;
     }
 
@@ -56,7 +54,6 @@ class NodeProperty extends Component<NodeProps, NodeState> {
 
         return (<Form layout="vertical">
             {Object.entries(config).map(([key, value]) => {
-                    console.log(key, value);
                     return (
                         <Form.Item key={key} label={key}>
                             <Input
