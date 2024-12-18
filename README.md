@@ -80,7 +80,7 @@ Watch the [demo](https://youtu.be/1McI_sbkJ5g​).
 
 3. Run unit tests:
     ```sh
-    npm run testW
+    npm run test
     ```
 
 4. If the test fails, please check is port 5000 occupied.
