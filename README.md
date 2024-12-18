@@ -65,6 +65,12 @@ To install and run the application locally, follow these steps:
     npm run dev
     ```
 
+We don't have the Apple developer sign now, so we can not release the executable version.
+
+## How to use
+
+Watch the [demo](https://youtu.be/1McI_sbkJ5g​).
+
 ## Test
 
 ### Unit test
@@ -74,7 +80,7 @@ To install and run the application locally, follow these steps:
 
 3. Run unit tests:
     ```sh
-    npm run test
+    npm run testW
     ```
 
 4. If the test fails, please check is port 5000 occupied.
